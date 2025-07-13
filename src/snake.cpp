@@ -1,77 +1,71 @@
 #include <ncurses.h>
 #include <vector>
 #include <stdio.h>
-
+#include <array>
 
 struct Position{
     int x;
     int y;
 };
 
-struct Frame{
-    std::vector<char> 
+struct Pixel{
+    int value;
+    bool not_empty = false;
+    
+    char point_state[8] = { ' ', '*', '>', '<', '^', 'v', '|', '-' };
+
+    void print_pixel(){
+        printf("%c", point_state[value]);
+    }
+};
+
+class Frame{
+    private:
+        int w;
+        int h;
+
+    public:
+        std::vector<char> frame_chars;
+        std::vector<std::array<int, 2>> point_data;
+
+        Frame(Player player, int width, int height){
+            h = height;
+            w = width;
+        }
+
+        void frame_initialize(){
+
+        }
+
+        char grid_char(int point_state){
+
+            if (point_state == 0){
+                return ' ';
+            }
+            
+        }
+
+        void draw(){
+
+        }    
 };
 
 class Player{
     public:
         Position player_pos;
+        int player_length;
+        bool player_state;
+        int player_direction;
         
-
         Player(){
-
+            
         }
-};
-
-class Screen {
-    private:
-        int w;
-        int h;
-        int posx;
-        int posy;
-
-    public:
-        std::vector<char> screen;
-
-        Screen(int width, int height, std::vector<char> &new_screen, Position &player_pos){
-            w = width;
-            h = height;
-            screen = new_screen;
-
-            posx = player_pos.x;
-            posy = player_pos.y;
-        }
-
-        void display(){
-            for(int i=0; i<w; i++){
-                for(int j=0; j<h; j++){
-                    if (posx == i && posy == j){
-                        printf("%c", screen[(i*w+1) * j]);
-                    }
-                    else{
-                        printf(" ");
-                    }
-                }
-                printf("\n");
-            }
-        }
+        
 };
 
 
-class Apples {
-    public:
-        int* apples;  
-
-        Apples(int width, int height){
-            apples = new int[width*height];
-
-        }
-        ~Apples(){
-            delete[] apples;
-        }
-};
-
-void gameLoop(Screen game_screen, Position &player_pos){
+void gameLoop(){
     
     
-    game_screen.display();
+    
 }
