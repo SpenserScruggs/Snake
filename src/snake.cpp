@@ -4,24 +4,32 @@
 #include <array>
 
 struct Position{
-    int x;
-    int y;
+    int x, y;
 };
 
-struct Pixel{
-    int value = 0;
-    int timer = 0;
+class Pixel{
+    public:
+        int value = 0;
+        int timer = 0;
 
-    char point_state[8] = { ' ', '*', '>', '<', '^', 'v', '|', '-' };
-    
-    void print_pixel(){
+        std::array<char, 9> point_state = { ' ', '*', '>', '<', '^', 'v', '|', '-', 'X' };
         
-        printf("%c", point_state[value]);
-        
-        if(timer > 0){
-            timer -= 1;
-        } 
-    }
+        void print_pixel(){
+            
+            printf("%c", point_state[value]);
+            
+            if(timer > 0){
+                timer -= 1;
+            } 
+        }
+        void set_apple(){
+
+        }
+
+        void set_player(){
+
+        }
+
 };
 
 enum class LifeState { Up, Down, Left, Right };
@@ -41,15 +49,14 @@ class Player{
 
 class Frame{
     private:
-        int w;
-        int h;
+        int w, h;
         std::vector<Pixel> pixel_list;
 
     public:
 
-        Frame(Player player, int width, int height){
-            h = height;
-            w = width;
+        Frame(Player player, int width, int height, WINDOW *win){
+            h = height-2;
+            w = width-2;
             pixel_list.resize(w*h);
 
 
@@ -64,7 +71,12 @@ class Frame{
         }
 
         void draw(){
+            for(int i=0; i<pixel_list.size(); i++){
 
+                if(i%w == 0){
+
+                }
+            }
         }    
 };
 

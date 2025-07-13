@@ -1,53 +1,29 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <array>
 #include <ncurses.h>
+#include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <snake.h>
 
-class Screen {
-    public:
-        int w;
-        int h;
-        int posx;
-        int posy;
-
-        Screen(int width, int height, std::array<int, 2> &player_xypos){
-            w = width;
-            h = height;
-            posx = player_xypos[0];
-            posy = player_xypos[1];
-        }
-
-        void display(){
-            for(int i=0; i<w; i++){
-                for(int j=0; j<h; j++){
-                    if (posx == i && posy == j){
-                        printf("M");
-                    }
-                    else{
-                        printf(" ");
-                    }
-                }
-                printf("\n");
-            }
-        }  
-};
-
-class apples {
-    public:
-        int max_apples;
-
-        std::array<float, 2> newthing;
-};
-
+using namespace::std;
 
 int main(){
 
-    std::array<int, 2> player_pos = { 9, 0 };
+    initscr();
+    noecho();
 
-    Screen my_screen(10, 10, player_pos);
+    curs_set(0);
+    int yMax, xMax;
+    getmaxyx(stdscr, yMax, xMax);
 
-    my_screen.display();
+    WINDOW *win = newwin(yMax/1.25, xMax/1.25, yMax/8, xMax/8);
+    box(win, 0, 0);
 
+    Player player;
+    
+    Frame(player, int(xMax/1.25), int(yMax/1.25), win);
 
+    wgetch(win);
+
+    endwin();
     return 0;
 }
