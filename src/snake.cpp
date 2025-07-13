@@ -9,31 +9,49 @@ struct Position{
 };
 
 struct Pixel{
-    int value;
-    bool not_empty = false;
-    
-    char point_state[8] = { ' ', '*', '>', '<', '^', 'v', '|', '-' };
+    int value = 0;
+    int timer = 0;
 
+    char point_state[8] = { ' ', '*', '>', '<', '^', 'v', '|', '-' };
+    
     void print_pixel(){
+        
         printf("%c", point_state[value]);
+        
+        if(timer > 0){
+            timer -= 1;
+        } 
     }
+};
+
+enum class LifeState { Up, Down, Left, Right };
+enum class Direction { Alive, Dead };
+
+class Player{
+    public:
+        LifeState player_state;
+        Direction player_direction;
+        Position player_pos;
+        int player_length;
+        
+        Player(){
+          
+        }
 };
 
 class Frame{
     private:
         int w;
         int h;
+        std::vector<Pixel> pixel_list;
 
     public:
-        std::vector<char> frame_chars;
-        std::vector<std::array<int, 2>> point_data;
 
         Frame(Player player, int width, int height){
             h = height;
             w = width;
-        }
+            pixel_list.resize(w*h);
 
-        void frame_initialize(){
 
         }
 
@@ -50,22 +68,8 @@ class Frame{
         }    
 };
 
-class Player{
-    public:
-        Position player_pos;
-        int player_length;
-        bool player_state;
-        int player_direction;
-        
-        Player(){
-            
-        }
-        
-};
 
 
 void gameLoop(){
-    
-    
     
 }
