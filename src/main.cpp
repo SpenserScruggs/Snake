@@ -19,8 +19,8 @@ int main(){
     box(win, 0, 0);
 
     Player player;
-    
-    Frame(player, int(xMax/1.25), int(yMax/1.25), win);
+
+    Frame frame(player, int(xMax/1.25), int(yMax/1.25), win);
 
     wgetch(win);
 

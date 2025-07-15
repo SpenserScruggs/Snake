@@ -1,1 +1,1 @@
-g++ src/main.cpp src/snake.cpp -lncurses -o bin/output
+g++ src/main.cpp lib/*.cpp -lncurses -o bin/output
