@@ -2,90 +2,54 @@
 #include <vector>
 #include <stdio.h>
 #include <array>
+#include "snake.h"
 
-struct Position{
-    int x, y;
-};
 
-enum class LifeState { Alive, Dead };
-enum class Direction { Up, Down, Left, Right };
+Player::Player()
+{
+}
 
-class Player{
-    public:
-        LifeState player_state;
-        Direction player_direction;
-        Position player_pos;
-        int player_length;
-        
-        Player(){
-          
+void Pixel::print_pixel(WINDOW *win){
+    
+    mvwaddch(win, pix_pos.x, pix_pos.y, point_state[value]);
+    
+    if(timer > 0){
+        timer -= 1;
+        if(timer == 0){
+            value = 0;
         }
-};
+    } 
+}
 
-class Pixel{
-    public:
-        int value = 0;
-        int timer = 0;
-        Position pix_pos;
+Pixel::Pixel(){
 
-        std::array<char, 9> point_state = { '^', 'v', '<', '>', ' ', '*', '|', '-', 'X' };
-        
-        Pixel(){
+}
 
-        }
-
-        void print_pixel(WINDOW *win){
-            
-            mvwaddch(win, pix_pos.x, pix_pos.y, point_state[value]);
-            
-            if(timer > 0){
-                timer -= 1;
-                if(timer == 0){
-                    value = 0;
-                }
-            } 
-        }
-        void set_apple(){
-            value = 1;
-        }
-
-        void set_player(Player player){
-            value = static_cast<int>(player.player_direction);
-
-            if(player.player_state == LifeState::Dead){
-                value = 8;
-            }
-        }
-};
+void Pixel::set_apple(){
+    value = 1;
+}
 
 
-class Frame{
-    private:
-        int w, h;
-        std::vector<Pixel> pixel_list;
+void Pixel::set_player(Player player){
+    value = static_cast<int>(player.player_direction);
 
-    public:
+    if(player.player_state == LifeState::Dead){
+        value = 8;
+    }
+}
 
-        Frame(Player player, int width, int height, WINDOW *win){
-            h = height-2;
-            w = width-2;
-            pixel_list.resize(w*h);
+// ——— Frame ———————————————————————
+Frame::Frame(Player player, int width, int height, WINDOW* /*win*/)
+{
+    w = width - 2;
+    h = height -2;
+    pixel_list.resize(w * h);
+}
 
+void Frame::draw(){
 
-        }
-
-        void draw(){
-            for(int i=0; i<pixel_list.size(); i++){
-
-                if(i%w == 0){
-
-                }
-            }
-        }    
-};
-
-
+}
 
 void gameLoop(){
-    
+
 }

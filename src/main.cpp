@@ -2,7 +2,7 @@
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
-#include <snake.h>
+#include "../lib/snake.h"
 
 using namespace::std;
 
