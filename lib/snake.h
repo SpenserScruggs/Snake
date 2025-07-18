@@ -8,6 +8,7 @@
 
 struct Position{
     int x, y;
+    bool operator==(Position &other);
 };
 
 enum class LifeState { Alive, Dead };
@@ -16,11 +17,12 @@ enum class Direction { Up=0, Down=1, Left=2, Right=3 };
 class Player{
 public:
     LifeState player_state;
-    Direction player_direction;
+    Direction player_direction = Direction::Up;
     Position player_pos;
-    int player_length;
+    int player_length = 0;
 
     Player();
+    void move();
 };
 
 class Pixel{
@@ -42,15 +44,16 @@ public:
 class Frame{
 private:
     int w, h;
-    WINDOW* window;
     std::vector<Pixel> pixel_list;
-
+    
 public:
+    WINDOW* window;
+    Player current_player;
 
-    Frame(Player player, int width, int height, WINDOW *win);
+    Frame(int width, int height, WINDOW *win);
     void draw();  
 };
 
 
 
-void gameLoop();
+void gameLoop(Frame &frame);

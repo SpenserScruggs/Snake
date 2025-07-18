@@ -16,12 +16,10 @@ int main(){
     WINDOW *win = newwin(yMax/1.25, xMax/1.25, yMax/8, xMax/8);
     box(win, 0, 0);
 
-    Player player;
+    Frame frame(int(xMax/1.25), int(yMax/1.25), win);
+    
+    gameLoop(frame);
 
-    Frame frame(player, int(xMax/1.25), int(yMax/1.25), win);
-    frame.draw();
-
-    wgetch(win);
 
     endwin();
     return 0;
