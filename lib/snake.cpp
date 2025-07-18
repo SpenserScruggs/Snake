@@ -22,7 +22,6 @@ void Pixel::print_pixel(WINDOW *win){
 }
 
 Pixel::Pixel(){
-
 }
 
 void Pixel::set_apple(){
@@ -39,15 +38,26 @@ void Pixel::set_player(Player player){
 }
 
 // ——— Frame ———————————————————————
-Frame::Frame(Player player, int width, int height, WINDOW* /*win*/)
+Frame::Frame(Player player, int width, int height, WINDOW* win)
 {
     w = width - 2;
     h = height -2;
-    pixel_list.resize(w * h);
+    window = win;
+
+    for(int i = 1; i < h+1; i++){
+        for (int j = 1; j < w+1; j++){
+            Pixel new_pixel;
+            new_pixel.pix_pos.x = i;
+            new_pixel.pix_pos.y = j;
+            pixel_list.push_back(new_pixel);
+        }
+    }
 }
 
 void Frame::draw(){
-
+    for(int i = 0; i < pixel_list.size(); i++){
+        pixel_list[i].print_pixel(window);
+    }
 }
 
 void gameLoop(){

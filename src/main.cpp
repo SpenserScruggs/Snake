@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include "../lib/snake.h"
 
-using namespace::std;
-
 int main(){
 
     initscr();
@@ -21,6 +19,7 @@ int main(){
     Player player;
 
     Frame frame(player, int(xMax/1.25), int(yMax/1.25), win);
+    frame.draw();
 
     wgetch(win);
 
