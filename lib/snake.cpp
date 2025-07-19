@@ -2,6 +2,7 @@
 #include <vector>
 #include <stdio.h>
 #include <array>
+#include <unistd.h>
 #include "snake.h"
 
 
@@ -30,22 +31,34 @@ void Player::move(){
 
 void Pixel::print_pixel(WINDOW *win){
     
-    mvwaddch(win, pix_pos.y, pix_pos.x, point_state[value]);
-    
     if(timer > 0){
         timer -= 1;
-        if(timer == 0){
+        if(timer <= 0){
             value = 4;
         }
     } 
+    mvwaddch(win, pix_pos.y, pix_pos.x, point_state[value]);
+    
 }
 
 Pixel::Pixel(){
 }
 
 void Pixel::set_apple(){
-    value = 1;
+    value = 5;
+    // fill with function that pushbacks a position vector for all pixels not
+    // with player head or tail or apple, chose random one, set a new apple
+    // call at start with x apples, call again every time an apple gets eaten
 }
+
+void Frame::initial_apples(){
+    
+}
+
+void Frame::add_apple(){
+
+}
+
 
 
 void Pixel::set_player(Player player){
@@ -87,6 +100,7 @@ void Frame::draw(){
         }
         
         if(current_player.player_pos == pixel_list[i].pix_pos){
+            pixel_list[i].timer = current_player.player_length;
             pixel_list[i].value = int(current_player.player_direction);
         }
 
@@ -96,21 +110,33 @@ void Frame::draw(){
 
 void gameLoop(Frame &frame){
     int input;
+    int temp = 0;
+    wtimeout(frame.window, 200);
     while(true){
-
+        mvwprintw(frame.window, 0, 0, "%d", temp);
         input = wgetch(frame.window);
-        if (input == 'w'){
+
+        switch (input)
+        {
+        case 'w':
             frame.current_player.player_direction = Direction::Up;
-        }
-        else if (input == 's'){
+            break;
+        case 's':
             frame.current_player.player_direction = Direction::Down;
-        }
-        else if (input == 'd'){
+            break;
+        case 'd':
             frame.current_player.player_direction = Direction::Right;
-        }
-        else if (input == 'a'){
+            break;
+        case 'a':
             frame.current_player.player_direction = Direction::Left;
+            break;
+        case 'q':
+            return;
+        default:
+            break;
         }
+
+        temp ++;
         frame.draw();
     }
 }
