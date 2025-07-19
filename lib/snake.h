@@ -19,7 +19,7 @@ public:
     LifeState player_state;
     Direction player_direction = Direction::Up;
     Position player_pos;
-    int player_length = 0;
+    int player_length = 15;
 
     Player();
     void move();
@@ -36,7 +36,6 @@ public:
     Pixel();
 
     void print_pixel(WINDOW *win);
-    void set_apple();
     void set_player(Player player);
 };
 
@@ -51,7 +50,9 @@ public:
     Player current_player;
 
     Frame(int width, int height, WINDOW *win);
-    void draw();  
+    void draw(); 
+    void initial_apples(); 
+    void add_apple(std::vector<Pixel> &pixels);
 };
 
 
